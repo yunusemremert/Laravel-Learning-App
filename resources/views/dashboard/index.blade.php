@@ -26,7 +26,7 @@
                             @foreach($story as $stor)
                                 <tr>
                                     <td>
-                                        <a href="{{ route('dashboard.show', [$stor]) }}">{{ $stor->title }}</a>
+                                        <a href="{{ route('dashboard.show', [$stor]) }}">{{ ($stor->title) }}</a>
                                     </td>
                                     <td>{{ $stor->type }}</td>
                                     <td>{{ $stor->user->name }}</td>

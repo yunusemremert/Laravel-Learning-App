@@ -16,6 +16,8 @@
                         <br>
                         <hr>
                         {{ $story->body }}
+                        <br>
+                        <p class="font-italic">{{ $story->footnote }}</p>
                     </div>
                 </div>
             </div>
