@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\NewStoryNotification;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Http\Request;
 use App\Story;
 use App\Http\Requests\StoryRequest;
+use Illuminate\Support\Facades\Mail;
 
 class StoryController extends Controller
 {
@@ -50,7 +52,9 @@ class StoryController extends Controller
      */
     public function store(StoryRequest $request)
     {
-        auth()->user()->stories()->create($request->all());
+        $story = auth()->user()->stories()->create($request->all());
+
+        Mail::send(new NewStoryNotification($story->title));
 
         return redirect()->route('story.index')->with('status', 'Story Created Successfully!');
     }
