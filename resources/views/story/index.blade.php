@@ -26,6 +26,7 @@
                             <tbody>
                                 @foreach($story as $stor)
                                     <tr>
+                                        <td><img src="{{ $stor->thumbnail }}" /></td>
                                         <td>{{ $stor->title }}</td>
                                         <td>{{ $stor->type }}</td>
                                         <td>{{ $stor->status == 1 ? 'Yes' : 'No' }}</td>

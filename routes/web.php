@@ -41,3 +41,13 @@ Route::namespace('Admin')->prefix('admin')->middleware(['auth', Checkadmin::clas
     Route::put('/story/restore/{id}', 'StoryController@restore')->name('admin.story.restore');
     Route::delete('/story/delete/{id}', 'StoryController@delete')->name('admin.story.delete');
 });
+
+Route::get('/image', function (){
+    $image_path = public_path('storage/r5.jpg');
+    $write_path = public_path('storage/thumbnail.jpg');
+
+    $img = Image::make($image_path)->resize(225, 100);
+    $img->save($write_path);
+
+    return $img->response('jpg');
+});

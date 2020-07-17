@@ -12,7 +12,7 @@
                         </div>
                     </div>
                     <div class="card-body">
-                        <form action="{{ route('story.store') }}" method="POST" autocomplete="off">
+                        <form action="{{ route('story.store') }}" method="POST" enctype="multipart/form-data" autocomplete="off">
                             @include('story.form')
                             <button type="submit" class="btn btn-success">Add</button>
                             @csrf
