@@ -32,7 +32,7 @@ class DashboardController extends Controller
         $story = $query
             ->with('user')
             ->orderBy('id', 'DESC')
-            ->paginate(10);
+            ->paginate(9);
 
         return view('dashboard.index', compact('story'));
     }
