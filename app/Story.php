@@ -26,6 +26,10 @@ class Story extends Model
         return $this->belongsTo(\App\User::class);
     }
 
+    public function tags(){
+        return $this->belongsToMany(\App\Tag::class);
+    }
+
     protected static function booted()
     {
         // Admin Page visible problem

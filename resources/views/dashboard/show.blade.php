@@ -21,6 +21,11 @@
                         <img class="card-img-top" src="{{ $story->thumbnail }}" alt="Story image cap">
                         <h5 class="card-title mt-3">{{ ($story->title) }}</h5>
                         <p class="card-text">{{ ($story->body) }}</p>
+                        <div class="mb-3">
+                            @foreach($story->tags as $tag)
+                                <button class="btn btn-sm btn-outline-primary">{{ $tag->name }}</button>
+                            @endforeach
+                        </div>
                         <div class="d-flex justify-content-between align-items-center">
                             <div class="btn-group">
                                 <button type="button" class="btn btn-sm btn-outline-secondary">{{ $story->user->name }}</button>

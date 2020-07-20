@@ -30,7 +30,7 @@ class DashboardController extends Controller
         }
 
         $story = $query
-            ->with('user')
+            ->with(['user', 'tags'])
             ->orderBy('id', 'DESC')
             ->paginate(9);
 

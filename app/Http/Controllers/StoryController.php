@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoryRequest;
 use App\Story;
+use App\Tag;
 use App\Events\StoryCreated;
 use App\Events\StoryEdited;
 use App\Mail\NewStoryNotification;
@@ -28,7 +29,10 @@ class StoryController extends Controller
      */
     public function index()
     {
-        $story = Story::where('user_id', auth()->user()->id)->orderBy('id', 'DESC')->paginate(3);
+        $story = Story::where('user_id', auth()->user()->id)
+            ->with('tags')
+            ->orderBy('id', 'DESC')
+            ->paginate(3);
 
         return view('story.index', compact('story'));
     }
@@ -43,9 +47,11 @@ class StoryController extends Controller
         //$this->authorize('create');
 
         $story = new Story;
+        $tags = Tag::get();
 
         return view('story.create', [
-            'story' => $story
+            'story' => $story,
+            'tags' => $tags
         ]);
     }
 
@@ -65,6 +71,8 @@ class StoryController extends Controller
         if($request->hasFile('image')){
             $this->_uploadImage($request, $story);
         }
+
+        $story->tags()->sync($request->tag);
 
         event(new StoryCreated($story->title));
 
@@ -94,8 +102,13 @@ class StoryController extends Controller
 
         //$this->authorize('update', $story);
 
+        //dd($story->tags->pluck('id')->toArray());
+
+        $tags = Tag::get();
+
         return view('story.edit', [
-            'story' => $story
+            'story' => $story,
+            'tags' => $tags
         ]);
     }
 
@@ -113,6 +126,8 @@ class StoryController extends Controller
         if($request->hasFile('image')){
             $this->_uploadImage($request, $story);
         }
+
+        $story->tags()->sync($request->tag);
 
         event(new StoryEdited($story->title));
 

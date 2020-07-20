@@ -23,6 +23,11 @@
                         </a>
                         <div class="card-body">
                             <p class="card-text">{{ ($stor->title) }}</p>
+                            <div class="mb-3">
+                                @foreach($stor->tags as $tag)
+                                    <button class="btn btn-sm btn-outline-primary">{{ $tag->name }}</button>
+                                @endforeach
+                            </div>
                             <div class="d-flex justify-content-between align-items-center">
                                 <div class="btn-group">
                                     <button type="button" class="btn btn-sm btn-outline-secondary">{{ $stor->user->name }}</button>
